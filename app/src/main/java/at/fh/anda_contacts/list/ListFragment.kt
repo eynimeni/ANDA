@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import at.fh.anda_contacts.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.http.*
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -74,6 +75,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 val apiContacts: List<ApiContact> = httpClient.get("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts").body()
                 val contacts = apiContacts.map { Contact(it.id, it.name, it.telephoneNumber.toString(), it.age) }
                 adapter.updateContacts(ArrayList(contacts))
+
+
+                httpClient.post("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts") {
+                    contentType(ContentType.Application.Json)
+                    setBody(ApiContact(66,"Neuer Name", 123456, 34))
+                }
+
                 refresher.isRefreshing = false
             }
 
