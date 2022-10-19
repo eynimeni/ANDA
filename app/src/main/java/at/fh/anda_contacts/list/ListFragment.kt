@@ -3,15 +3,17 @@ package at.fh.anda_contacts.list
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import at.fh.anda_contacts.LoggingObserver
-import at.fh.anda_contacts.R
+import at.fh.anda_contacts.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import kotlinx.coroutines.launch
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var recyclerView: RecyclerView
@@ -64,10 +66,18 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         recyclerView.adapter = adapter
 
         refresher.setOnRefreshListener {
-
             // Hier kann der Refresh prozess angestoßen werden. Der Refresher kann mit isRefreshing = false wieder versteckt werden
-            viewModel.load()
-            refresher.isRefreshing = false
+            // viewModel.load() das war vor ktor die funktion!
+
+            val httpClient = createHttpClient()
+            lifecycleScope.launch(){
+                val apiContacts: List<ApiContact> = httpClient.get("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts").body()
+                val contacts = apiContacts.map { Contact(it.id, it.name, it.telephoneNumber.toString(), it.age) }
+                adapter.updateContacts(ArrayList(contacts))
+                refresher.isRefreshing = false
+            }
+
+
         }
     }
 }

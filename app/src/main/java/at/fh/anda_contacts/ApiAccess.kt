@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class ApiContact(val name: String, val telephoneNumber: Int, val age: Int)
+data class ApiContact(val id: Int, val name: String, val telephoneNumber: Int, val age: Int)
 
 fun createHttpClient() = HttpClient(Android) {
     expectSuccess = true
