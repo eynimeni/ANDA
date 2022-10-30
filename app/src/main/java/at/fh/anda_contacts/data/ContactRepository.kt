@@ -1,9 +1,11 @@
 package at.fh.anda_contacts.data
 
 import androidx.lifecycle.LiveData
+import at.fh.anda_contacts.ApiContact
 import at.fh.anda_contacts.Contact
-import at.fh.anda_contacts.createContacts
 import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
 
 //globale Variable, die Klasse ist in der Variable und mit repository.readAll kann ich überall drauf zugreifen
 //Vorsicht, man könnte die Variable überschreiben
@@ -34,9 +36,22 @@ class ContactRepository(private val andaDatabase: ANDADatabase, private val http
     }
     //hier könnte man auch leicht auf eine DB zugreifen und müsste an den anderen Klassen nichts ändern
 
-    fun load(){
+
+    suspend fun load() {
+
+        val apiContacts: List<ApiContact> =
+            httpClient.get("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts")
+                .body()
+        val contacts =
+            apiContacts.map { Contact(it.id, it.name, it.telephoneNumber.toString(), it.age) }
+        contactDao.insertContacts(contacts)
+    }
+    /*
+        fun load(){
         contactDao.insertContacts(createContacts(50))
     }
+     */
+
 
 
 }
