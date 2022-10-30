@@ -1,8 +1,8 @@
 package at.fh.anda_contacts
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import at.fh.anda_contacts.data.ANDADatabase
 import at.fh.anda_contacts.data.ContactRepository
@@ -25,7 +25,10 @@ class MainActivity : AppCompatActivity() {
         ).allowMainThreadQueries()
             .build()
         //mit diesem database-builder können wir so viele datenbanken haben wie wir wollen
-        repository = ContactRepository(database)
+
+        val httpClient = createHttpClient()
+
+        repository = ContactRepository(database, httpClient)
     }
 
     //bevor die View sichtbar ist

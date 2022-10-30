@@ -70,6 +70,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             // Hier kann der Refresh prozess angestoßen werden. Der Refresher kann mit isRefreshing = false wieder versteckt werden
             // viewModel.load() das war vor ktor die funktion!
 
+            //diese funktion hab ich jetzt auch beim constructor vom repository in der main
+
             val httpClient = createHttpClient()
             lifecycleScope.launch(){
                 val apiContacts: List<ApiContact> = httpClient.get("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts").body()
