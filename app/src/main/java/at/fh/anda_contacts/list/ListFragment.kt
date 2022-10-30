@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import at.fh.anda_contacts.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
+import at.fh.anda_contacts.LoggingObserver
+import at.fh.anda_contacts.R
+import at.fh.anda_contacts.createHttpClient
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -66,25 +65,24 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
 
+
         refresher.setOnRefreshListener {
             // Hier kann der Refresh prozess angestoßen werden. Der Refresher kann mit isRefreshing = false wieder versteckt werden
-            // viewModel.load() das war vor ktor die funktion!
 
-            //diese funktion hab ich jetzt auch beim constructor vom repository in der main
 
             val httpClient = createHttpClient()
-            lifecycleScope.launch(){
-                val apiContacts: List<ApiContact> = httpClient.get("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts").body()
-                val contacts = apiContacts.map { Contact(it.id, it.name, it.telephoneNumber.toString(), it.age) }
-                adapter.updateContacts(ArrayList(contacts))
 
-                httpClient.post("https://my-json-server.typicode.com/GithubGenericUsername/find-your-pet/contacts") {
-                    contentType(ContentType.Application.Json)
-                    setBody(ApiContact(66,"Neuer Name", 123456, 34))
-                }
-                refresher.isRefreshing = false
+            lifecycleScope.launch(){
+                val contacts = viewModel.load()
+                adapter.updateContacts(ArrayList())
             }
 
+
+            refresher.isRefreshing = false
         }
+
+
+
+
     }
 }

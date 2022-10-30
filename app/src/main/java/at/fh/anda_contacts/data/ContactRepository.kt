@@ -45,6 +45,7 @@ class ContactRepository(private val andaDatabase: ANDADatabase, private val http
         val contacts =
             apiContacts.map { Contact(it.id, it.name, it.telephoneNumber.toString(), it.age) }
         contactDao.insertContacts(contacts)
+        //return contacts;
     }
     /*
         fun load(){
