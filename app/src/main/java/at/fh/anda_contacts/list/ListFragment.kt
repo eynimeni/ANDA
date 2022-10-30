@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import at.fh.anda_contacts.Contact
 import at.fh.anda_contacts.LoggingObserver
 import at.fh.anda_contacts.R
-import at.fh.anda_contacts.createHttpClient
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -67,16 +67,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
 
         refresher.setOnRefreshListener {
-            // Hier kann der Refresh prozess angestoßen werden. Der Refresher kann mit isRefreshing = false wieder versteckt werden
-
-
-            val httpClient = createHttpClient()
 
             lifecycleScope.launch(){
                 val contacts = viewModel.load()
-                adapter.updateContacts(ArrayList())
+                adapter.updateContacts(contacts as ArrayList<Contact>)
             }
-
 
             refresher.isRefreshing = false
         }
