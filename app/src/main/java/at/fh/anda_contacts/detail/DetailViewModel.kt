@@ -14,18 +14,15 @@ class DetailViewModel(private val savedStateHandle: SavedStateHandle) :ViewModel
 
     fun read(): Contact {
         return contact
-        //das ist der get call von savedStateHandle
     }
 
     override fun onCleared() {
         super.onCleared()
-        //immer zuerst die Super-Klasse aufrufen, aus der Basisklasse
         Log.e("DetailViewModel","onCleared")
     }
 
     fun onNameChanged(newName: String) {
         contact.name = newName
-        //für Auto-Save: this.save() rufen, dann müsste man aber nicht mehr den SAVE Button haben
     }
 
     fun save() {

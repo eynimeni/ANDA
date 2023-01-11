@@ -20,9 +20,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var refresher: SwipeRefreshLayout
     private lateinit var searchView: SearchView
     private val adapter = ContactsAdapter(ArrayList())
-
     private val viewModel: ListViewModel by viewModels()
-    //mit by ist es per se eine lateinit, wird erst aufgerufen wenn viewModel. aufgerufen wird
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,8 +28,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         refresher = view.findViewById(R.id.swRefresher)
         searchView = view.findViewById(R.id.svContactName)
         lifecycle.addObserver(LoggingObserver())
-        //Observer kann man wieder verwenden - zB permission observer...
-        //dadurch lifecycle-aware events feuern
         setupList()
         setupSearch()
         viewModel.readAll().observe(viewLifecycleOwner) {currentContacts ->
@@ -64,7 +60,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         refresher.setOnRefreshListener {
 
-            lifecycleScope.launch(){
+            lifecycleScope.launch {
                 val contacts = viewModel.load()
                 adapter.updateContacts(contacts as ArrayList<Contact>)
             }

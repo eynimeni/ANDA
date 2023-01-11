@@ -36,6 +36,6 @@ class ContactsAdapter(var contacts: ArrayList<Contact>): RecyclerView.Adapter<Co
 
     fun updateContacts(contacts: ArrayList<Contact>) {
         this.contacts = contacts
-        notifyDataSetChanged() // calls the recyclerview and refreshes it
+        notifyDataSetChanged()
     }
 }

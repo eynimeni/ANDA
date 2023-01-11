@@ -34,8 +34,6 @@ class ContactRepository(private val andaDatabase: ANDADatabase, private val http
     fun readAll(contactName: String): LiveData<List<Contact>> {
         return contactDao.getContacts(contactName)
     }
-    //hier könnte man auch leicht auf eine DB zugreifen und müsste an den anderen Klassen nichts ändern
-
 
     suspend fun load(): List<Contact> {
 
@@ -44,8 +42,7 @@ class ContactRepository(private val andaDatabase: ANDADatabase, private val http
                 .body()
         val contacts =
             apiContacts.map { Contact(it.id, it.name, it.telephoneNumber.toString(), it.age) }
-        //contactDao.insertContacts(contacts)
-        return contacts;
+        return contacts
     }
 
 

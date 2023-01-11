@@ -19,9 +19,4 @@ class ListViewModel : ViewModel() {
 
     suspend fun load() = repository.load()
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
-
 }

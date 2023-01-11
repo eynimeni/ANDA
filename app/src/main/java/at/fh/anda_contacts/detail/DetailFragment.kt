@@ -38,7 +38,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         button.setOnClickListener {
             viewModel.save()
             findNavController().popBackStack()
-            //wie backbutton klick
         }
 
         val btnDelete = view.findViewById<Button>(R.id.btnDelete)
