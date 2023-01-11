@@ -26,7 +26,7 @@ class ContactsAdapter(var contacts: ArrayList<Contact>): RecyclerView.Adapter<Co
         holder.contactNameTextView.text = contact.name
         holder.listItemContactRootView.setOnClickListener{
             val navHostFragment = holder.listItemContactRootView.findNavController()
-            navHostFragment.navigate(ListFragmentDirections.actionOverviewFragmentToDetailFragment(contact.id))
+            navHostFragment.navigate(ListFragmentDirections.actionOverviewFragmentToDetailFragment(contact))
         }
     }
 

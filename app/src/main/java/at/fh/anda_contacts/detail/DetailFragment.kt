@@ -9,17 +9,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import at.fh.anda_contacts.R
-import at.fh.anda_contacts.list.ListViewModel
 import com.google.android.material.textfield.TextInputEditText
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
+    private val argumentsFromOverviewScreen: DetailFragmentArgs by navArgs()
     private val viewModel : DetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel
-        val contact = viewModel.read()
+        val contact = argumentsFromOverviewScreen.contact
 
         val etContactName = view.findViewById<TextInputEditText>(R.id.etContactName)
         etContactName.setText(contact.name)

@@ -1,6 +1,5 @@
 package at.fh.anda_contacts.detail
 
-import android.text.Editable
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,7 @@ import at.fh.anda_contacts.data.repository
 class DetailViewModel(private val savedStateHandle: SavedStateHandle) :ViewModel() {
 
     private val contact = repository.read(
-        savedStateHandle["contactId"]!!
+        savedStateHandle["contact"]!!
     )
 
     fun read(): Contact {

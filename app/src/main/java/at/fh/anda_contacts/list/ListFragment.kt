@@ -49,14 +49,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 viewModel.onSearchTermEntered(newText)
                 return true
             }
-
         })
-
     }
 
     private fun setupList() {
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
         val dividerItemDecoration = DividerItemDecoration(
             recyclerView.context,
             linearLayoutManager.orientation
@@ -64,7 +61,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
-
 
         refresher.setOnRefreshListener {
 
@@ -74,6 +70,5 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             }
             refresher.isRefreshing = false
         }
-
     }
 }
