@@ -3,7 +3,6 @@ package at.fh.anda_contacts.detail
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import at.fh.anda_contacts.Contact
 import at.fh.anda_contacts.data.repository
 
 class DetailViewModel(private val savedStateHandle: SavedStateHandle) :ViewModel() {
@@ -11,10 +10,6 @@ class DetailViewModel(private val savedStateHandle: SavedStateHandle) :ViewModel
     private val contact = repository.read(
         savedStateHandle["contact"]!!
     )
-
-    fun read(): Contact {
-        return contact
-    }
 
     override fun onCleared() {
         super.onCleared()

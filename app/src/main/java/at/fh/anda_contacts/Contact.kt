@@ -13,6 +13,9 @@ class Contact(
     var age: Int
 ) : Serializable
 
+/*
 fun createContacts(contactCount: Int) =
     (1..contactCount)
         .map { index -> Contact(0, "Name $index", "Tel Number", 20 + contactCount) }
+ */
+
