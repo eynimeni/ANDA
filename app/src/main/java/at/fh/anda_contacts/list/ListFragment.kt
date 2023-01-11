@@ -72,12 +72,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 val contacts = viewModel.load()
                 adapter.updateContacts(contacts as ArrayList<Contact>)
             }
-
             refresher.isRefreshing = false
         }
-
-
-
 
     }
 }

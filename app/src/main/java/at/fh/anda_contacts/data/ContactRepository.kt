@@ -47,12 +47,6 @@ class ContactRepository(private val andaDatabase: ANDADatabase, private val http
         //contactDao.insertContacts(contacts)
         return contacts;
     }
-    /*
-        fun load(){
-        contactDao.insertContacts(createContacts(50))
-    }
-     */
-
 
 
 }
